@@ -1,2 +1,1 @@
-# hello-vue
-App Developer Bootcamp: Part 2
+Hello Vue.js

@@ -1,0 +1,31 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>Hello!</title>
+  </head>  
+  <body>
+    
+    <h1>
+      Handling User Input With 2 Way Binding
+    </h1>
+    
+    <div id="app">
+      <p>{{ message }}</p>
+      <!-- bind "message" to the input field -->
+      <input v-model="message">
+    </div>
+
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script>
+    
+      var app = new Vue({
+        el: '#app',
+        data: {
+          message: 'Hello Vue!!!!'
+        }
+      });
+    
+    </script>
+  </body>
+</html>

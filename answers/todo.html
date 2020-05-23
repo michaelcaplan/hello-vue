@@ -1,0 +1,111 @@
+<!doctype html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8">
+		<title>Vue.js • TodoMVC</title>
+    <link rel="stylesheet" href="https://unpkg.com/todomvc-app-css@2.0.6/index.css">
+		<style> [v-cloak] { display: none; } </style>
+	</head>
+	<body>
+    
+    <!-- our app starts here -->
+    <section id="app">
+      
+      <!-- The header -->
+      <header class="header">
+        <h1>todos</h1>
+        
+        <!-- 1. bind "newTodo" to the input element -->
+        <!-- 2. when the enter keyup event is fired,
+                call "addTodo" method -->
+        <input class="new-todo"
+               autofocus 
+               autocomplete="off"
+               placeholder="What needs to be done?"
+               v-model="newTodo"
+               v-on:keyup.enter="addTodo">
+      </header>
+      
+      <!-- 3. Only show this section if "todos" has "length" -->
+      <section class="main" 
+               v-show="todos.length" 
+               v-cloak>
+        
+        <ul class="todo-list">
+          
+          <!-- The list of todo items -->
+          <!-- 4. Loop through each item in "todos" -->
+          <li v-for="todo in todos" 
+              class="todo"
+              v-bind:key="todo.id" 
+              v-bind:class="{ completed: todo.completed, editing: todo == editedTodo }">
+            
+            <div class="view">
+              
+              <!-- 5. bind "todo.completed" to the input element -->
+              <input class="toggle"
+                     type="checkbox"
+                     v-model="todo.completed">
+              
+              <label v-on:dblclick="editTodo(todo)">
+                <!-- 6. bind "todo.title" to the label inner text
+                    Use “Mustache” syntax -->
+                {{ todo.title }}
+              </label>
+              
+              <!-- 7. When the click event is fired, call "removeTodo"
+                  and pass it the current "todo" item -->
+              <button class="destroy" v-on:click="removeTodo(todo)"></button>
+              
+            </div>
+            
+            <input class="edit" 
+                   type="text"
+                   v-model="todo.title"
+                   v-on:blur="doneEdit(todo)"
+                   v-on:keyup.enter="doneEdit(todo)"
+                   v-on:keyup.esc="cancelEdit(todo)">
+            
+          </li>
+        </ul>
+        
+      </section>
+      
+      <!-- 8. Only show the footer if "todos" has "length" -->
+      <footer class="footer" 
+              v-show="todos.length" 
+              v-cloak>
+        
+        <span class="todo-count">
+          <strong>
+            <!-- 9. bind computed "remaining" to the strong element
+                  inner text Use “Mustache” syntax -->
+            {{ remaining }}
+          </strong> 
+          <!-- 10. bind computed "remaining" to inner text 
+              pass it to the "pluralize" filter
+              Use “Mustache” syntax -->
+          {{ remaining | pluralize }} left
+        </span>
+
+        <!-- 11. Only show button if "todos.length > remaining" -->
+        <button class="clear-completed" 
+                v-on:click="removeCompleted" 
+                v-show="todos.length > remaining">
+          Clear completed
+        </button>
+      </footer>
+      
+    </section>
+    
+    <footer class="info">
+      <p>Double-click to edit a todo</p>
+      <p>Based off of <a href="http://evanyou.me">Evan You</a>'s todo example</p>
+    </footer>
+    
+    
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+		<script src="todo.js"></script>
+    
+	</body>
+</html>
